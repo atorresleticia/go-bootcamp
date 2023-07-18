@@ -1,0 +1,13 @@
+- go oferece performance, que anda junto com escalabilidade. Escalar significa conseguir atender uma demanda baseado no que está sendo recebido, ou seja, se aumentar o uso do sistema, o sistema deveria conseguir atender quantas demandas for necessário. Performance tem mais a ver com a latência e response time do sistema
+
+- sistemas mais performaticos tornam o processo de escalabilidade mais fácil, pois necessita de coisas mais simples para Escalar
+
+- go traz redução no poder computacional, pois é uma linguagem simples, gasta menos CPU, tornando o gasto em cloud menor por exemplo
+
+- normalmente aplicações coorporativas que precisa escalar usam go
+
+-----
+
+go run main.go -> executes
+
+go build main.go -> creates a binary of our program, to deploy it for example
