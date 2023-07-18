@@ -2,7 +2,10 @@ module github.com/atorresleticia/go-bootcamp
 
 go 1.20
 
-require github.com/stretchr/testify v1.8.4
+require (
+	github.com/mattn/go-sqlite3 v1.14.17
+	github.com/stretchr/testify v1.8.4
+)
 
 require (
 	github.com/davecgh/go-spew v1.1.1 // indirect
