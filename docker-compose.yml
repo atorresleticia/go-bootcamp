@@ -1,0 +1,94 @@
+version: '3.4'
+services: 
+
+  nginx:
+    build:
+      dockerfile: ./docker/nginx.Dockerfile
+      context: .
+    image: raelamorim/nginx
+    container_name: nginx
+    ports: 
+      - "80:80"
+    networks: 
+      - prod
+    depends_on:
+      - "app1"
+      - "app2" 
+      - "app3"
+      - "redis"
+      - "mysql"
+
+  app1:
+    build:
+      dockerfile: ./docker/bootcamp.Dockerfile
+      context: .
+    image: golang
+    container_name: app1
+    ports:
+      - "8080"
+    networks:
+      - prod
+    depends_on:
+      - "mysql"
+      - "redis"
+
+  app2:
+    build:
+      dockerfile: ./docker/bootcamp.Dockerfile
+      context: .
+    image: golang
+    container_name: app2
+    ports:
+      - "8080"
+    networks:
+      - prod
+    depends_on:
+      - "mysql"
+      - "redis"
+      - "app1"
+
+  app3:
+    build:
+      dockerfile: ./docker/bootcamp.Dockerfile
+      context: .
+    image: golang
+    container_name: app3
+    ports:
+      - "8080"
+    networks:
+      - prod
+    depends_on:
+      - "mysql"
+      - "redis"
+      - "app2"
+
+  redis:
+    image: redis
+    container_name: redis
+    networks:
+      - prod
+    depends_on:
+      - mysql      
+    
+    expose:      
+      - '6379'      
+
+  mysql:
+    image: mysql
+    container_name: mysql
+    ports: 
+      - 3306:3306
+    environment:       
+      - MYSQL_USER=leticia
+      - MYSQL_PASSWORD=anypassword
+      - MYSQL_DATABASE=bootcamp
+      - MYSQL_ROOT_PASSWORD=anypassword
+    volumes:
+      - ./mysql:/var/lib/mysql
+    networks:
+      - prod
+
+
+networks:
+  prod:
+    driver: bridge

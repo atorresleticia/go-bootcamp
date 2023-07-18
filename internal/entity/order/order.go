@@ -3,16 +3,15 @@ package entity
 import "errors"
 
 type Order struct {
-	ID         string
-	Price      float64
-	Tax        float64
-	FinalPrice float64
+	ID         uint64  `gorm:"primary_key;auto_increment" json:"id"`
+	Price      float64 `gorm:"not null" json:"price"`
+	Tax        float64 `gorm:"not null" json:"tax"`
+	FinalPrice float64 `gorm:"null" json:"final_price"`
 }
 
-func NewOrder(id string, price float64, tax float64) (*Order, error) {
+func NewOrder(price float64, tax float64) (*Order, error) {
 
 	order := &Order{
-		ID:    id,
 		Price: price,
 		Tax:   tax,
 	}
@@ -28,8 +27,8 @@ func NewOrder(id string, price float64, tax float64) (*Order, error) {
 
 func (o *Order) Validate() error {
 
-	if o.ID == "" {
-		return errors.New("id is mandatory")
+	if o.ID == 0 {
+		return errors.New("id should be greater than zero")
 	}
 
 	return nil

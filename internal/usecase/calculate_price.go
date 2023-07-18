@@ -5,19 +5,18 @@ import (
 )
 
 type OrderInput struct {
-	ID    string
+	ID    uint64
 	Price float64
 	Tax   float64
 }
 
 type OrderOutput struct {
-	ID         string
+	ID         uint64
 	Price      float64
 	Tax        float64
 	FinalPrice float64
 }
 
-// soliD - dependency inversion principle, injetando a dependência
 type CalculateFinalPrice struct {
 	OrderRepository entity.OrderRepositoryInterface
 }
@@ -28,7 +27,7 @@ func NewCalculateFinalPrice(orderRepository entity.OrderRepositoryInterface) *Ca
 
 func (c *CalculateFinalPrice) Execute(input OrderInput) (*OrderOutput, error) {
 
-	order, err := entity.NewOrder(input.ID, input.Price, input.Tax)
+	order, err := entity.NewOrder(input.Price, input.Tax)
 
 	if err != nil {
 		return nil, err
